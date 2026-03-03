@@ -9,7 +9,7 @@
 #######
 # SITE SETTINGS
 #
-title: bootstrap5-template
+title: Book Logger
 description: "A logger for books and movies, built with Jekyll and Bootstrap 5"
 year: 2026
 author: Jett McHugh
