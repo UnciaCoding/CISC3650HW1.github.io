@@ -1,4 +1,4 @@
-CISC 3650 HW Front end Design of a Book/Movie Log - By Jett McHugh
+# CISC 3650 HW Front end Design of a Book/Movie Log - By Jett McHugh
 
 Using this template: https://github.com/thecdil/bootstrap5-template
 
