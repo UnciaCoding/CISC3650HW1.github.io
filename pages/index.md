@@ -1,6 +1,6 @@
 ---
-title: bootstrap5-template Demo
+title: Book Logger
 layout: page
 ---
 
-{% include jumbotron.html heading=site.title text="Log and rate the books you've read, or are reading!" button-text="Learn More" button-link="about.html" %}
+{% include jumbotron.html heading=site.title text="Log and rate the books you've read, or are reading!" button-text="Start Logging!" button-link="about.html" %}
