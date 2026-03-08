@@ -1,5 +1,5 @@
 ---
-title: Book Logger
+
 layout: page
 ---
 
