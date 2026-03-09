@@ -15,10 +15,14 @@ Using PapaParse to parse the .CSV file and create Book objects for each entry in
 	   Series Number = number in the series if Part Of Series is true
 	if Rating, Book Genre, Reading Status are not provided, they will appear as " " in the file
 */
-import Papa from './papaparse.min.js';
+import Papa from 'papaparse';
+import fs from 'fs';
+const file = fs.createReadStream('log.csv');
+let arrayOfBooks = [];
+
+//const file = 'log.csv';
 
 class Book {
-
 	constructor(title, author, rating = " ", genre = " ", status = " ", partOfSeries = false, seriesName = " ", seriesNumber = " "){
 		this.title = title;
 		this.author = author;
@@ -73,5 +77,16 @@ class Book {
 	set seriesNumber(seriesNumber){
 		this.seriesNumber = seriesNumber;
 	}
-
+	
+}
+Papa.parse(file, {
+	complete: function(results) {
+		header: false
+		delimiter: ",",
+		console.log("Finished:", results.data);
+		arrayAssign(results.data);
+	}
+});
+function createBooks(results) {
+  
 }
