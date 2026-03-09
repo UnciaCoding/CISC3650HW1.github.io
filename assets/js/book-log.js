@@ -13,17 +13,16 @@ Using PapaParse to parse the .CSV file and create Book objects for each entry in
 	   Part Of Series = true/false
 	   Series Name = name of the series if Part Of Series is true
 	   Series Number = number in the series if Part Of Series is true
-	if Rating, Book Genre, Reading Status are not provided, they will appear as " " in the file
+	if Rating, Book Genre, Reading Status are not provided, they will appear as "" in the file
 */
 import Papa from 'papaparse';
 import fs from 'fs';
-const file = fs.createReadStream('log.csv');
 let arrayOfBooks = [];
 
 //const file = 'log.csv';
 
 class Book {
-	constructor(title, author, rating = " ", genre = " ", status = " ", partOfSeries = false, seriesName = " ", seriesNumber = " "){
+	constructor(title, author, rating = "", genre = "", status = "", partOfSeries = "FALSE", seriesName = "", seriesNumber = ""){
 		this.title = title;
 		this.author = author;
 		this.rating = rating;
@@ -74,19 +73,80 @@ class Book {
 	setSeriesName(seriesName){
 		this.seriesName = seriesName;
 	}
-	set seriesNumber(seriesNumber){
+	setSeriesNumber(seriesNumber){
 		this.seriesNumber = seriesNumber;
 	}
-	
+	//Create string from book data for sake of appending to CSV file
+	bookString(){
+		return `${this.title},${this.author},${this.rating},${this.genre},${this.status},${this.partOfSeries},${this.seriesName},${this.seriesNumber}`;
+	}
+	//Print book for test
+	printBook(){
+		console.log("Title: " + this.title);
+		console.log("Author: " + this.author);
+		if(this.rating != ""){
+			console.log("Rating: " + this.rating);
+		}
+		if(this.genre != ""){
+			console.log("Genre: " + this.genre);
+		}
+		if(this.status != ""){
+			console.log("Status: " + this.status);
+		}
+		if(this.partOfSeries != "FALSE"){
+			console.log("Part Of Series: " + this.partOfSeries);
+			console.log("Series Name: " + this.seriesName);
+			console.log("Series Number: " + this.seriesNumber);
+		}
+	}
 }
+//Function to pull data from csv file
+const file = fs.createReadStream('log.csv');
 Papa.parse(file, {
 	complete: function(results) {
 		header: false
 		delimiter: ",",
 		console.log("Finished:", results.data);
-		arrayAssign(results.data);
+		createBooks(results.data);
 	}
 });
+//Function to write a book to CSV file
+function writeBookToCSV(book) {
+	fs.appendFile('log.csv', book.bookString() + '\n', (err) => {
+		if (err) {
+			console.error('Error writing to CSV file', err);
+		} else {
+			console.log('Book added to CSV file');
+		}
+	});
+}
+
+//Function to delete a book from CSV file
+function deleteBookFromCSV(book) {
+	fs.readFile('log.csv', 'utf8', (err, data) => {
+		if (err) {
+			console.error('Error reading CSV file', err);
+			return;
+		}
+		const lines = data.split('\n');
+		const filteredLines = lines.filter(line => line.trim() !== book.bookString());
+		fs.writeFile('log.csv', filteredLines.join('\n'), (err) => {
+			if (err) {
+				console.error('Error writing to CSV file', err);
+			} else {
+				console.log('Book deleted from CSV file');
+			}
+		});
+	});
+}
+
+//Function to assign data from csv file to Book objects and store them in an array
 function createBooks(results) {
-  
+	for(let i=0; i<results.length; i++){
+		let book = new Book(results[i][0], results[i][1], results[i][2], results[i][3], results[i][4], results[i][5], results[i][6], results[i][7]);
+		arrayOfBooks.push(book);
+		//Print statements for testing purposes
+		// book.printBook();
+		// console.log(book.bookString());
+	}
 }
