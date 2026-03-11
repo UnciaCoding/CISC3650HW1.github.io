@@ -103,16 +103,22 @@ class Book {
 //Function to pull data from csv file
 const file = fs.createReadStream('log.csv');
 Papa.parse(file, {
+	header: false,
+	delimiter: ",",
+	newline: '\n',
 	complete: function(results) {
-		header: false
-		delimiter: ",",
 		console.log("Finished:", results.data);
 		createBooks(results.data);
-	}
+		// Code From testing Add/Delete Function
+		let newBook = new Book("Metamorphoses","Ovid","3","Classic","Read","FALSE","","");
+		console.log("Book to delete: ", newBook.bookString());
+		// writeBookToCSV(newBook);
+		//deleteBookFromCSV(newBook);
+	 }
 });
 //Function to write a book to CSV file
 function writeBookToCSV(book) {
-	fs.appendFile('log.csv', book.bookString() + '\n', (err) => {
+	fs.appendFile('log.csv','\n'+book.bookString(),'utf8', (err) => {
 		if (err) {
 			console.error('Error writing to CSV file', err);
 		} else {
