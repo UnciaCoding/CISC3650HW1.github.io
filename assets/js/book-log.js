@@ -189,6 +189,6 @@ function displayBooks(results) {
                 </div>
 			</div>`;
 	}
-	console.log(newHTML);
-	//bookContainer.insertAdjacentHTML('beforeend', newHTML);
+	
+	bookContainer.insertAdjacentHTML('beforeend', newHTML);
 }
