@@ -8,5 +8,6 @@ nav_order: 1
 Testing integrating JS into MD
 <body onload="parseCSVFile()"> 
    <div class="accordion" id="bookList">
+      <script> parseCSVFile() </script>
    </div>
 </body>
