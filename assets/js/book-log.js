@@ -160,10 +160,10 @@ function displayBooks(results) {
 	}
 	// Use book array + Bootstrap5 Accordion to Display books on HTML page
 	// Use a loop function to create Accordions for each book to display in
-	let newHTML = ''
 	let bookNum = arrayOfBooks.length;
     const parentId = `accordionExample`;
 	for(let i =0; i<bookNum; i++){
+		let newHTML = ''
 		let collapseId = `collapse${arrayOfBooks[i]}`;
     	let headingId = `heading${arrayOfBooks[i]}`;
 		newHTML +=	`
@@ -190,5 +190,5 @@ function displayBooks(results) {
 			</div>`;
 	}
 	
-	bookContainer.insertAdjacentHTML('beforeend', newHTML);
+	bookContainer.appendChild(newHTML);
 }
