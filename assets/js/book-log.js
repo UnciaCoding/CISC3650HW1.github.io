@@ -18,7 +18,7 @@ Using PapaParse to parse the .CSV file and create Book objects for each entry in
 import Papa from 'papaparse';
 import fs from 'fs';
 let arrayOfBooks = [];
-
+//const bookContainer = document.getElementById('bookList');
 //const file = 'log.csv';
 
 class Book {
@@ -102,18 +102,19 @@ class Book {
 }
 //Function to pull data from csv file
 const file = fs.createReadStream('log.csv');
-Papa.parse(file, {
+Papa.parse(file, { // Parameters for CSV file: , delimiter, \n newline
 	header: false,
 	delimiter: ",",
 	newline: '\n',
 	complete: function(results) {
-		console.log("Finished:", results.data);
-		createBooks(results.data);
+		// console.log("Finished:", results.data);
+		// Pass the parsed CSV data into the display books function
+		displayBooks(results.data);
 		// Code From testing Add/Delete Function
-		let newBook = new Book("Metamorphoses","Ovid","3","Classic","Read","FALSE","","");
-		console.log("Book to delete: ", newBook.bookString());
+		// let newBook = new Book("Metamorphoses","Ovid","3","Classic","Read","FALSE","","");
+		// console.log("Book to delete: ", newBook.bookString());
 		// writeBookToCSV(newBook);
-		//deleteBookFromCSV(newBook);
+		// deleteBookFromCSV(newBook);
 	 }
 });
 //Function to write a book to CSV file
@@ -146,8 +147,14 @@ function deleteBookFromCSV(book) {
 	});
 }
 
-//Function to assign data from csv file to Book objects and store them in an array
-function createBooks(results) {
+// //Function to edit CSV file in accordance with editing a book on the site
+// function editCSVFile(){
+
+// }
+
+//Function to assign data from csv file to Book objects and store them in an array, as well as display them
+function displayBooks(results) {
+	//Create Book Array for ease of use
 	for(let i=0; i<results.length; i++){
 		let book = new Book(results[i][0], results[i][1], results[i][2], results[i][3], results[i][4], results[i][5], results[i][6], results[i][7]);
 		arrayOfBooks.push(book);
@@ -155,4 +162,38 @@ function createBooks(results) {
 		// book.printBook();
 		// console.log(book.bookString());
 	}
+	// Use book array + Bootstrap5 Accordion to Display books on HTML page
+	// Use a loop function to create Accordions for each book to display in
+	let newHTML = ''
+	let bookNum = arrayOfBooks.length;
+	const collapseId = `collapse${bookNum}`;
+    const headingId = `heading${bookNum}`;
+    const parentId = `accordionExample`;
+	for(let i =0; i<bookNum; i++){
+
+		newHTML +=	`
+			<div class="accordion-item">
+		        <h2 class="accordion-header" id="${headingId}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+                        ${arrayOfBooks[i].getTitle()}
+                    </button>
+                </h2>
+                <div id="${collapseId}" class="accordion-collapse collapse" aria-labelledby="${headingId}" data-bs-parent="#${parentId}">
+                    <div class="accordion-body">
+                        <strong>Title: </strong> ${arrayOfBooks[i].getTitle()} <strong>Author: </strong> ${arrayOfBooks[i].getAuthor()}
+						<strong>Genre: </strong> ${arrayOfBooks[i].getGenre()} <strong>Reading Status: </strong> ${arrayOfBooks[i].getStatus()}`;
+		if(arrayOfBooks[i].getRating !== ''){
+			newHTML+=	`
+						<strong>Rating: </strong> ${arrayOfBooks[i].getRating()}`;
+		}if(arrayOfBooks[i].getPartOfSeries()==="TRUE"){
+			newHTML+=	`
+						<strong>Series: </strong> ${arrayOfBooks[i].getSeriesName()} <strong>Series Number: </strong> ${arrayOfBooks[i].getSeriesNumber()}`;
+		}
+		newHTML +=`
+                    </div>
+                </div>
+			</div>`;
+	}
+	console.log(newHTML);
+	//bookContainer.insertAdjacentHTML('beforeend', newHTML);
 }
