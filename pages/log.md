@@ -4,6 +4,7 @@ nav: Log
 nav_order: 1
 ---
 
+<script src=".\assets\js\book-log.js"></script>
 Testing integrating JS into MD
 <body onload="parseCSVFile()"> <!-- -->
     <!-- Page content here -->
@@ -12,5 +13,3 @@ Testing integrating JS into MD
 <div class="accordion" id="bookList">
 
 </div>
-
-<script src=".\assets\js\book-log.js"></script>
