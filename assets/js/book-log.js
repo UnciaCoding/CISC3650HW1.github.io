@@ -18,7 +18,7 @@ Using PapaParse to parse the .CSV file and create Book objects for each entry in
 import Papa from 'papaparse';
 import fs from 'fs';
 let arrayOfBooks = [];
-//const bookContainer = document.getElementById('bookList');
+const bookContainer = document.getElementById('bookList');
 //const file = 'log.csv';
 
 class Book {
@@ -101,22 +101,18 @@ class Book {
 	}
 }
 //Function to pull data from csv file
-const file = fs.createReadStream('log.csv');
-Papa.parse(file, { // Parameters for CSV file: , delimiter, \n newline
-	header: false,
-	delimiter: ",",
-	newline: '\n',
-	complete: function(results) {
-		// console.log("Finished:", results.data);
-		// Pass the parsed CSV data into the display books function
-		displayBooks(results.data);
-		// Code From testing Add/Delete Function
-		// let newBook = new Book("Metamorphoses","Ovid","3","Classic","Read","FALSE","","");
-		// console.log("Book to delete: ", newBook.bookString());
-		// writeBookToCSV(newBook);
-		// deleteBookFromCSV(newBook);
-	 }
-});
+function parseCSVFile(){
+	const file = fs.createReadStream('log.csv');
+	Papa.parse(file, { // Parameters for CSV file: , delimiter, \n newline
+		header: false,
+		delimiter: ",",
+		newline: '\n',
+		complete: function(results) {
+			// Pass the parsed CSV data into the display books function
+			displayBooks(results.data);
+		}
+	});
+}
 //Function to write a book to CSV file
 function writeBookToCSV(book) {
 	fs.appendFile('log.csv','\n'+book.bookString(),'utf8', (err) => {
