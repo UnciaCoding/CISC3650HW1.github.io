@@ -166,7 +166,8 @@ function displayBooks(results) {
     const headingId = `heading${bookNum}`;
     const parentId = `accordionExample`;
 	for(let i =0; i<bookNum; i++){
-
+		const collapseId = `collapse${arrayOfBooks[i]}`;
+    	const headingId = `heading${arrayOfBooks[i]}`;
 		newHTML +=	`
 			<div class="accordion-item">
 		        <h2 class="accordion-header" id="${headingId}">
