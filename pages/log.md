@@ -19,10 +19,12 @@ Testing integrating JS into MD
         </h2>
         <div id="${collapseId}" class="accordion-collapse collapse" aria-labelledby="${headingId}" data-bs-parent="#${parentId}">
             <div class="accordion-body">
-                <strong>Title: </strong>TITLE      <strong>Author: </strong> AUTHOR <br>
-				<strong>Genre: </strong>GENRE      <strong>Reading Status: </strong>READ <br>
-                <strong>Rating: </strong> RATING<br>
-                <strong>Series: </strong>SERIESNAME      <strong>Series Number: </strong> SERIESNUMBER<br>
+                <pre>
+                    <strong>Title: </strong>TITLE <strong>Author: </strong> AUTHOR <br>
+                    <strong>Genre: </strong>GENRE      <strong>Reading Status: </strong>READ <br>
+                    <strong>Rating: </strong> RATING<br>
+                    <strong>Series: </strong>SERIESNAME      <strong>Series Number: </strong> SERIESNUMBER<br>
+                </pre>
             </div>
         </div>
     </div>
