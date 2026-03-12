@@ -162,12 +162,10 @@ function displayBooks(results) {
 	// Use a loop function to create Accordions for each book to display in
 	let newHTML = ''
 	let bookNum = arrayOfBooks.length;
-	const collapseId = `collapse${bookNum}`;
-    const headingId = `heading${bookNum}`;
     const parentId = `accordionExample`;
 	for(let i =0; i<bookNum; i++){
-		const collapseId = `collapse${arrayOfBooks[i]}`;
-    	const headingId = `heading${arrayOfBooks[i]}`;
+		let collapseId = `collapse${arrayOfBooks[i]}`;
+    	let headingId = `heading${arrayOfBooks[i]}`;
 		newHTML +=	`
 			<div class="accordion-item">
 		        <h2 class="accordion-header" id="${headingId}">
