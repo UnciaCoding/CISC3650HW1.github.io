@@ -9,6 +9,6 @@ nav_order: 1
 Browse through your selection of books.
 <body onload="parseCSVFile()"> 
    <div id="booksContainer">
-      <script> parseCSVFile() </script>
+      <button class="btn btn-primary" onclick="parseCSVFile()">Load Books</button>
    </div>
 </body>
