@@ -7,8 +7,7 @@ nav_order: 1
 <script src="book-log.js"></script>
 📚 **Book Logging Website**
 Browse through your selection of books.
-<body onload="parseCSVFile()"> 
-   <div id="booksContainer">
-      <button class="btn btn-primary" onclick="parseCSVFile()">Load Books</button>
-   </div>
-</body>
+
+<div id="booksContainer">
+   <button class="btn btn-primary" onclick="parseCSVFile()">Load Books</button>
+</div>
