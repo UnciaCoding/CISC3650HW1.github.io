@@ -167,7 +167,7 @@ function displayBooks(results) {
 	let bookNum = arrayOfBooks.length;
     const parentId = `accordionExample`;
 	let accordionHTML = `
-        <div class="accordion book-accordion" id="bookAccordion">
+        <div class="accordion book-accordion" id="${parentId}">
     `;
 	for(let i =0; i<bookNum; i++){
 		let collapseId = `collapse${arrayOfBooks[i]}`;
