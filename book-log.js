@@ -18,7 +18,6 @@ Using PapaParse to parse the .CSV file and create Book objects for each entry in
 import Papa from 'papaparse';
 import fs from 'fs';
 let arrayOfBooks = [];
-const bookContainer = document.getElementById('bookList');
 //const file = 'log.csv';
 
 class Book {
@@ -150,6 +149,11 @@ function deleteBookFromCSV(book) {
 
 //Function to assign data from csv file to Book objects and store them in an array, as well as display them
 function displayBooks(results) {
+	const container = document.getElementById('booksContainer');
+	if (results.length === 0) {
+		container.innerHTML = '<div class="alert alert-warning text-center">No books found.</div>';
+		return;
+	}
 	//Create Book Array for ease of use
 	for(let i=0; i<results.length; i++){
 		let book = new Book(results[i][0], results[i][1], results[i][2], results[i][3], results[i][4], results[i][5], results[i][6], results[i][7]);
@@ -162,11 +166,13 @@ function displayBooks(results) {
 	// Use a loop function to create Accordions for each book to display in
 	let bookNum = arrayOfBooks.length;
     const parentId = `accordionExample`;
+	let accordionHTML = `
+        <div class="accordion book-accordion" id="bookAccordion">
+    `;
 	for(let i =0; i<bookNum; i++){
-		let newHTML = ''
 		let collapseId = `collapse${arrayOfBooks[i]}`;
     	let headingId = `heading${arrayOfBooks[i]}`;
-		newHTML +=	`
+		accordionHTML +=	`
 			<div class="accordion-item">
 		        <h2 class="accordion-header" id="${headingId}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
@@ -178,17 +184,17 @@ function displayBooks(results) {
                         <strong>Title: </strong> ${arrayOfBooks[i].getTitle()} <strong>Author: </strong> ${arrayOfBooks[i].getAuthor()}
 						<strong>Genre: </strong> ${arrayOfBooks[i].getGenre()} <strong>Reading Status: </strong> ${arrayOfBooks[i].getStatus()}`;
 		if(arrayOfBooks[i].getRating !== ''){
-			newHTML+=	`
+			accordionHTML+=	`
 						<strong>Rating: </strong> ${arrayOfBooks[i].getRating()}`;
 		}if(arrayOfBooks[i].getPartOfSeries()==="TRUE"){
-			newHTML+=	`
+			accordionHTML+=	`
 						<strong>Series: </strong> ${arrayOfBooks[i].getSeriesName()} <strong>Series Number: </strong> ${arrayOfBooks[i].getSeriesNumber()}`;
 		}
-		newHTML +=`
+		accordionHTML +=`
                     </div>
                 </div>
-			</div>`;
+			</div>
+		</div>`;
 	}
-	
-	bookContainer.appendChild(newHTML);
+	container.innerHTML = accordionHTML;
 }
