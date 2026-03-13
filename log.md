@@ -8,7 +8,7 @@ nav_order: 1
 📚 **Book Logging Website**
 Browse through your selection of books.
 <body onload="parseCSVFile()"> 
-   <div id="bookContainer">
+   <div id="booksContainer">
       <script> parseCSVFile() </script>
    </div>
 </body>
